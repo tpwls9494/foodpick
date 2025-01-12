@@ -1,5 +1,7 @@
 package com.example.foodpick.service;
 
+import com.example.foodpick.exception.BaseException;
+import com.example.foodpick.exception.ErrorCode;
 import com.example.foodpick.model.entity.User;
 import com.example.foodpick.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,11 +18,14 @@ public class UserService {
 
     @Transactional
     public User createUser(User user) {
+        // 이메일 중복 검사
         if (userRepository.existsByEmail(user.getEmail())) {
-            throw new RuntimeException("이메일이 이미 존재합니다.");
+            throw new BaseException(ErrorCode.EMAIL_ALREADY_EXISTS);
         }
+
+        // 닉네임 중복 검사
         if (userRepository.existsByNickname(user.getNickname())) {
-            throw new RuntimeException("닉네임이 이미 존재합니다.");
+            throw new BaseException(ErrorCode.NICKNAME_ALREADY_EXISTS);
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -29,11 +34,15 @@ public class UserService {
 
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
+                .orElseThrow(() -> new BaseException(ErrorCode.USER_NOT_FOUND));
     }
 
     @Transactional
     public User updateUser(User user) {
+        // 사용자 존재 여부 확인
+        if (!userRepository.existsById(user.getId())) {
+            throw new BaseException(ErrorCode.USER_NOT_FOUND);
+        }
         return userRepository.save(user);
     }
 }
