@@ -11,6 +11,12 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 데이터베이스 테이블과 매핑되는 사용자 정보가 담긴 클래스
+ * user 정보를 주고싶을 때 추가하는 형식으로 사용된다.
+ */
+
+
 @Data
 @Entity
 @Builder

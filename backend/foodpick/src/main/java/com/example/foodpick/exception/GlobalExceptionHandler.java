@@ -13,6 +13,10 @@ import javax.naming.AuthenticationException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * 각 에러 메세지를 출력해주는 전역에러핸들러 클래스
+ */
+
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {

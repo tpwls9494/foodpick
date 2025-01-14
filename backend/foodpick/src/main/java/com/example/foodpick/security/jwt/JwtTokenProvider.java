@@ -8,6 +8,12 @@ import org.springframework.stereotype.Component;
 import java.security.Key;
 import java.util.Date;
 
+/**
+ * JWT를 이용한 토큰 기반 인증을 위해
+ * JWT 토큰 생성/검증을 하는 클래스
+ */
+
+
 @Component
 public class JwtTokenProvider {
     private final Key key;
