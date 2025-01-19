@@ -1,5 +1,6 @@
-package com.example.foodpick.service;
+package com.example.foodpick.repository.service;
 
+import com.example.foodpick.dto.user.UserProfileDto;
 import com.example.foodpick.exception.BaseException;
 import com.example.foodpick.exception.ErrorCode;
 import com.example.foodpick.model.entity.User;
@@ -51,6 +52,23 @@ public class UserService {
         if (!userRepository.existsById(user.getId())) {
             throw new BaseException(ErrorCode.USER_NOT_FOUND);
         }
+        return userRepository.save(user);
+    }
+
+    @Transactional
+    public User updateProfile(String email, UserProfileDto profileDto) {
+        User user = getUserByEmail(email);
+
+        if (profileDto.getNickname() != null &&
+            !user.getNickname().equals(profileDto.getNickname()) &&
+                userRepository.existsByNickname(profileDto.getNickname())) {
+            throw new BaseException(ErrorCode.NICKNAME_ALREADY_EXISTS);
+        }
+
+        user.setNickname(profileDto.getNickname());
+        user.setCookingLevel(profileDto.getCookingLevel());
+        user.setDietaryRestrictions(profileDto.getDietaryRestrictions());
+
         return userRepository.save(user);
     }
 }
