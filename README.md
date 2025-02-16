@@ -95,9 +95,11 @@ foodpick/
 - ✅ 예외 처리 구현
 
 #### 2024-01-26
-- ⭕ 추천 시스템 구현 중
-- ⭕ 선호도 데이터 구조 설계
-- ⭕ 기본 추천 알고리즘 구현
+- ✅ 추천 시스템 기본 구조 구현
+- ✅ UserPreference 엔티티 생성
+- ✅ RecommendationService 개발
+- ✅ RecommendationController 추가
+- ✅ 사용자 선호도 저장 및 음식 추천 API 구현
 
 ## 🚀 설치 및 실행 방법
 
