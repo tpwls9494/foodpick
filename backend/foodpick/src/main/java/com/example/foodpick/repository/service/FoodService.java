@@ -1,5 +1,6 @@
 package com.example.foodpick.repository.service;
 
+import com.example.foodpick.dto.food.FoodDto;
 import com.example.foodpick.exception.BaseException;
 import com.example.foodpick.exception.ErrorCode;
 import com.example.foodpick.model.entity.Food;
@@ -20,6 +21,22 @@ import java.util.List;
 public class FoodService {
     private final FoodRepository foodRepository;
 
+    @Transactional
+    public Food createFood(FoodDto foodDto) {
+        Food food = Food.builder()
+                .name(foodDto.getName())
+                .description(foodDto.getDescription())
+                .category(foodDto.getCategory())
+                .imageUrl(foodDto.getImageUrl())
+                .cookingTime(foodDto.getCookingTime())
+                .difficulty(foodDto.getDifficulty())
+                .ingredients(foodDto.getIngredients())
+                .isSpicy(foodDto.getIsSpicy())
+                .isVegetarian(foodDto.getIsVegetarian())
+                .build();
+        return foodRepository.save(food);
+    }
+
     public List<Food> getAllFoods() {
         return foodRepository.findAll();
     }
@@ -29,28 +46,27 @@ public class FoodService {
                 .orElseThrow(() -> new BaseException(ErrorCode.FOOD_NOT_FOUND));
     }
 
-    @Transactional
-    public Food createFood(Food food) {
-        return foodRepository.save(food);
-    }
 
     @Transactional
-    public Food updateFood(Long id, Food foodDetails) {
+    public Food updateFood(Long id, FoodDto foodDto) {
         Food food = getFoodById(id);
-
-        food.setName(foodDetails.getName());
-        food.setDescription(foodDetails.getDescription());
-        food.setCategory(foodDetails.getCategory());
-        food.setImageUrl(foodDetails.getImageUrl());
-        food.setCookingTime(foodDetails.getCookingTime());
-        food.setDifficulty(foodDetails.getDifficulty());
-        food.setIngredients(foodDetails.getIngredients());
-        food.setIsSpicy(foodDetails.getIsSpicy());
-        food.setIsVegetarian(foodDetails.getIsVegetarian());
+        food.setName(foodDto.getName());
+        food.setDescription(foodDto.getDescription());
+        food.setCategory(foodDto.getCategory());
+        food.setImageUrl(foodDto.getImageUrl());
+        food.setCookingTime(foodDto.getCookingTime());
+        food.setDifficulty(foodDto.getDifficulty());
+        food.setIngredients(foodDto.getIngredients());
+        food.setIsSpicy(foodDto.getIsSpicy());
+        food.setIsVegetarian(foodDto.getIsVegetarian());
 
         return foodRepository.save(food);
     }
 
+    @Transactional
+    public void deleteFood(Long id) {
+        foodRepository.delete(getFoodById(id));
+    }
     public List<Food> getFoodsByCategory(String category) {
         return foodRepository.findByCategory(category);
     }

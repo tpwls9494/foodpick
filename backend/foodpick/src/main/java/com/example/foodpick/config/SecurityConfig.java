@@ -33,7 +33,9 @@ public class SecurityConfig {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/api/auth/**").permitAll();
+                    auth.requestMatchers("/api/foods/**").permitAll();
                     auth.requestMatchers("/api/users/**").authenticated();
+                    auth.requestMatchers("/api/recommendations/**").authenticated();
                     auth.anyRequest().authenticated();
                 })
                 .authenticationProvider(authenticationProvider())

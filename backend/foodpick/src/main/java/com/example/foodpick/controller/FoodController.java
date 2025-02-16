@@ -1,14 +1,13 @@
 package com.example.foodpick.controller;
 
 import com.example.foodpick.dto.common.ApiResponse;
+import com.example.foodpick.dto.food.FoodDto;
 import com.example.foodpick.model.entity.Food;
 import com.example.foodpick.repository.service.FoodService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -48,5 +47,25 @@ public class FoodController {
             @PathVariable Integer maxDifficulty) {
         List<Food> foods = foodService.getFoodsByDifficulty(maxDifficulty);
         return ResponseEntity.ok(ApiResponse.success(foods));
+    }
+
+    @PostMapping
+    public ResponseEntity<ApiResponse<Food>> createFood(@Valid @RequestBody FoodDto foodDto) {
+        Food food = foodService.createFood(foodDto);
+        return ResponseEntity.ok(ApiResponse.success("음식이 등록되었습니다.", food));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse<Food>> updateFood(
+            @PathVariable Long id,
+            @Valid @RequestBody FoodDto foodDto) {
+        Food food = foodService.updateFood(id, foodDto);
+        return ResponseEntity.ok(ApiResponse.success("음식이 수정되었습니다.", food));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<Void>> deleteFood(@PathVariable Long id) {
+        foodService.deleteFood(id);
+        return ResponseEntity.ok(ApiResponse.success("음식이 삭제되었습니다.", null));
     }
 }
