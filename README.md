@@ -66,6 +66,7 @@
 | POST | /api/recommendations/preference/{foodId} | 음식 선호도 저장 |
 
 ## 🗂 프로젝트 구조
+```tree
 foodpick/
 ├── backend/
 │   ├── src/main/java/
