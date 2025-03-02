@@ -7,7 +7,7 @@ import com.example.foodpick.dto.common.ApiResponse;
 import com.example.foodpick.model.entity.User;
 import com.example.foodpick.model.enums.Role;
 import com.example.foodpick.security.jwt.JwtTokenProvider;
-import com.example.foodpick.repository.service.UserService;
+import com.example.foodpick.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

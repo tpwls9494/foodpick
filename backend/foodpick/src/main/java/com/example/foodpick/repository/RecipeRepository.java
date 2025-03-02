@@ -11,4 +11,7 @@ import java.util.Optional;
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
     List<Recipe> findByFoodId(Long foodId);
     Optional<Recipe> findByFoodIdAndServings(Long foodId, Integer servings);
+
+    List<Recipe> findByServings(Integer servings);              // 인분 수로 검색
+    List<Recipe> findByFoodIdOrderByServingsAsc(Long foodId);   // 인분 수 오름차순 정렬렬
 }

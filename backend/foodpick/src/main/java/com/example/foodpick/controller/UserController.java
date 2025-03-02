@@ -3,7 +3,7 @@ package com.example.foodpick.controller;
 import com.example.foodpick.dto.common.ApiResponse;
 import com.example.foodpick.dto.user.UserProfileDto;
 import com.example.foodpick.model.entity.User;
-import com.example.foodpick.repository.service.UserService;
+import com.example.foodpick.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;

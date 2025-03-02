@@ -1,4 +1,4 @@
-package com.example.foodpick.repository.service;
+package com.example.foodpick.service;
 
 import com.example.foodpick.dto.recipe.RecipeDto;
 import com.example.foodpick.exception.BaseException;
@@ -25,7 +25,7 @@ public class RecipeService {
 
     public Recipe getRecipeById(Long id) {
         return recipeRepository.findById(id)
-                .orElseThrow(() -> new BaseException(ErrorCode.RECIPY_NOT_FOUND));
+                .orElseThrow(() -> new BaseException(ErrorCode.RECIPE_NOT_FOUND));
     }
 
     public List<Recipe> getRecipesByFoodId(Long foodId) {
@@ -46,13 +46,19 @@ public class RecipeService {
     }
 
     @Transactional
-    public Recipe updateRecipe(Long id, Recipe recipeDetails) {
+    public Recipe updateRecipe(Long id, RecipeDto recipeDto) {
         Recipe recipe = getRecipeById(id);
 
-        recipe.setInstructions(recipeDetails.getInstructions());
-        recipe.setTips(recipeDetails.getTips());
-        recipe.setServings(recipeDetails.getServings());
+        recipe.setInstructions(recipeDto.getInstructions());
+        recipe.setTips(recipeDto.getTips());
+        recipe.setServings(recipeDto.getServings());
 
         return recipeRepository.save(recipe);
+    }
+
+    @Transactional
+    public void deleteRecipe(Long id) {  // 새로운 메서드 추가
+        Recipe recipe = getRecipeById(id);
+        recipeRepository.delete(recipe);
     }
 }

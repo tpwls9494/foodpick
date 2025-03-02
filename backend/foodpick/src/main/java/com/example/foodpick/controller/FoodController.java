@@ -3,7 +3,7 @@ package com.example.foodpick.controller;
 import com.example.foodpick.dto.common.ApiResponse;
 import com.example.foodpick.dto.food.FoodDto;
 import com.example.foodpick.model.entity.Food;
-import com.example.foodpick.repository.service.FoodService;
+import com.example.foodpick.service.FoodService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

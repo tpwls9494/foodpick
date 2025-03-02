@@ -1,4 +1,4 @@
-package com.example.foodpick.repository.service;
+package com.example.foodpick.service;
 
 import com.example.foodpick.model.entity.Food;
 import com.example.foodpick.model.entity.User;

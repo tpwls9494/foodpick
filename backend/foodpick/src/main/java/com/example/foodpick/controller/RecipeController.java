@@ -3,13 +3,13 @@ package com.example.foodpick.controller;
 import com.example.foodpick.dto.common.ApiResponse;
 import com.example.foodpick.dto.recipe.RecipeDto;
 import com.example.foodpick.model.entity.Recipe;
-import com.example.foodpick.repository.service.RecipeService;
+import com.example.foodpick.service.RecipeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/recipes")
@@ -18,9 +18,12 @@ public class RecipeController {
     private final RecipeService recipeService;
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<Recipe>>> getAllRecipes() {
+    public ResponseEntity<ApiResponse<List<RecipeDto>>> getAllRecipes() {
         List<Recipe> recipes = recipeService.getAllRecipes();
-        return ResponseEntity.ok(ApiResponse.success(recipes));
+        List<RecipeDto> recipeDtos = recipes.stream()
+                .map(RecipeDto::from)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(ApiResponse.success(recipeDtos));
     }
 
     @GetMapping("/{id}")
