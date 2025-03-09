@@ -1,5 +1,6 @@
 package com.example.foodpick.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,7 +23,8 @@ public class Recipe {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "food_id", nullable = false)
+    @JoinColumn(name = "food_id")
+    @JsonBackReference
     private Food food;
 
     @Column(length = 5000)

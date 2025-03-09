@@ -1,6 +1,7 @@
 package com.example.foodpick.model.entity;
 
 import com.example.foodpick.dto.recipe.RecipeDto;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -44,6 +45,7 @@ public class Food {
     private Boolean isSpicy;
     private Boolean isVegetarian;
 
-    @OneToMany(mappedBy = "food", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "food")
+    @JsonManagedReference
     private List<Recipe> recipes;
 }

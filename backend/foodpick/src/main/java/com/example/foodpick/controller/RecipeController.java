@@ -27,23 +27,37 @@ public class RecipeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<Recipe>> getRecipeById(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<Recipe>> getRecipeById(@PathVariable("id") Long id) {
         Recipe recipe = recipeService.getRecipeById(id);
         return ResponseEntity.ok(ApiResponse.success(recipe));
     }
 
     @GetMapping("/food/{foodId}")
     public ResponseEntity<ApiResponse<List<Recipe>>> getRecipesByFoodId(
-            @PathVariable Long foodId) {
+            @PathVariable("foodId") Long foodId) {
         List<Recipe> recipes = recipeService.getRecipesByFoodId(foodId);
         return ResponseEntity.ok(ApiResponse.success(recipes));
     }
 
     @PostMapping("/food/{foodId}")
     public ResponseEntity<ApiResponse<Recipe>> createRecipe(
-            @PathVariable Long foodId,
+            @PathVariable("foodId") Long foodId,
             @RequestBody RecipeDto recipeDto) {
         Recipe recipe = recipeService.createRecipe(foodId, recipeDto);
         return ResponseEntity.ok(ApiResponse.success(recipe));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse<Recipe>> updateRecipe(
+            @PathVariable("id") Long id,
+            @RequestBody RecipeDto recipeDto) {
+        Recipe recipe = recipeService.updateRecipe(id, recipeDto);
+        return ResponseEntity.ok(ApiResponse.success("레시피가 수정되었습니다.", recipe));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<Void>> deleteRecipe(@PathVariable("id") Long id) {
+        recipeService.deleteRecipe(id);
+        return ResponseEntity.ok(ApiResponse.success("레시피가 삭제되었습니다.", null));
     }
 }

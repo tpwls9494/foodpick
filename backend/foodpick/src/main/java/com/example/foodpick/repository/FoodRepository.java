@@ -11,6 +11,8 @@ public interface FoodRepository extends JpaRepository<Food, Long> {
     List<Food> findByCategory(String category);
     List<Food> findByDifficultyLessThanEqual(Integer difficulty);
     List<Food> findByCookingTimeLessThanEqual(Integer cookingTime);
+    List<Food> findByCategoryAndDifficultyLessThanEqual(String category, Integer difficulty);
+    List<Food> findByCookingTimeLessThanAndDifficultyLessThanEqual(Integer cookingTime, Integer difficulty);
     List<Food> findByIsVegetarianTrue();
     List<Food> findByIsSpicyFalse();
 }
